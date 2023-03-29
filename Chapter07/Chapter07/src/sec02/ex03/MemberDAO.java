@@ -1,4 +1,4 @@
-package sec02.ex02;
+package sec02.ex03;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,8 +14,8 @@ import javax.sql.DataSource;
 
 public class MemberDAO {
 	private Connection con;
-	private PreparedStatement pstmt;
-	private DataSource dataFactory;
+	private PreparedStatement pstmt; 
+	private DataSource dataFactory; 
 	
 	public MemberDAO() {
 		try {
@@ -26,22 +26,19 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	public List<MemberVO> listMembers(){
+
+	public List<MemberVO> listMembers() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
-		try
-		{
-			// connDB();
-			con = dataFactory.getConnection();
+		try {
+			con=dataFactory.getConnection();		
 			
-			String query = "select * from t_member";
+			String query = "select * from t_member ";
 			System.out.println(query);
 			
-			pstmt = con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);		
 			ResultSet rs = pstmt.executeQuery(query);
 			
-			while(rs.next())
-			{
+			while (rs.next()) {
 				String id = rs.getString("id");
 				String pwd = rs.getString("pwd");
 				String name = rs.getString("name");
@@ -58,12 +55,12 @@ public class MemberDAO {
 			rs.close();
 			pstmt.close();
 			con.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
+
 	// 추가
 	public void addMember(MemberVO memberVO) {
 		try {
@@ -75,8 +72,8 @@ public class MemberDAO {
 			
 			String query = "insert into t_member";
 			query += " (id,pwd,name,email)";
-			query += " values(?,?,?,?)";
-			System.out.println("prepareStatement : " + query);
+			query += " values(?,?,?,?)";			
+			System.out.println("prepareStatememt: " + query);
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
@@ -85,9 +82,25 @@ public class MemberDAO {
 			pstmt.setString(4, email);
 			pstmt.executeUpdate();
 			pstmt.close();
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	// 추가
+	public void delMember(String id) {
+		try {
+			con = dataFactory.getConnection();
+			
+			String query = "delete from t_member" + " where id=?";
+			System.out.println("prepareStatememt:" + query);
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

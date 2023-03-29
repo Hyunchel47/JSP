@@ -32,7 +32,7 @@ public class MemberServlet extends HttpServlet {
 		
 		for (int i=0; i<list.size(); i++)
 		{
-			MemberVO memberVO = list.get(i);
+			MemberVO memberVO = (MemberVO) list.get(i);
 			String id = memberVO.getId();
 			String pwd = memberVO.getPwd();
 			String name = memberVO.getName();
