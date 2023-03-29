@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec02.ex01;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberServlet
  */
-@WebServlet("/Member")
+@WebServlet("/Member3")
 public class MemberServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,7 +32,7 @@ public class MemberServlet extends HttpServlet {
 		
 		for (int i=0; i<list.size(); i++)
 		{
-			MemberVO memberVO = list.get(i);
+			MemberVO memberVO = (MemberVO) list.get(i);
 			String id = memberVO.getId();
 			String pwd = memberVO.getPwd();
 			String name = memberVO.getName();
